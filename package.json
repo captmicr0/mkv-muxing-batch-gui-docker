@@ -1,6 +1,6 @@
 {
   "name": "mkv-muxing-batch-gui-docker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "mkv-muxing-batch-gui docker image",
   "author": "captmicr0",
   "license": ""
