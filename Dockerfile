@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y apt-transport-https wget locales \
     && ldconfig \
     && wget -O /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg \
     && apt-get update \
-    && apt-get install -y libboost-all-dev libegl1 libdbus-1-3 libxkbcommon-x11-0 libpugixml1v5 libmatroska7 libxcb-cursor0 git mkvtoolnix \
+    && apt-get install -y libboost-all-dev libpugixml1v5 libmatroska7 libxcb-cursor0 git mkvtoolnix \
     && cp `whereis libboost_filesystem.so | awk '{print($2)}'` /usr/lib/libboost_filesystem.so.1.71.0
 
 WORKDIR /build
@@ -42,7 +42,7 @@ RUN git clone --depth 1 https://github.com/yaser01/mkv-muxing-batch-gui.git \
     && set-cont-env APP_NAME "MKV Muxing Batch GUI" \
     && chmod +x /startapp.sh
 
-LABEL org.opencontainers.image.source=https://github.com/captmicr0/mkv-muxing-batch-gui-docker
+#LABEL org.opencontainers.image.source=https://github.com/captmicr0/mkv-muxing-batch-gui-docker
 
 # Local build
 # docker build -t captmicr0/mkv-muxing-batch-gui-docker:1.0.0 .
