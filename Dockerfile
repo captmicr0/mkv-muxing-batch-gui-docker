@@ -14,8 +14,9 @@ RUN apt-get update && apt-get install -y apt-transport-https wget locales \
     && ldconfig \
     && wget -O /usr/share/keyrings/gpg-pub-moritzbunkus.gpg https://mkvtoolnix.download/gpg-pub-moritzbunkus.gpg \
     && apt-get update \
-    && apt-get install -y libboost-all-dev libxkbcommon-x11-0 libpugixml1v5 libmatroska7 libxcb-cursor0 git mkvtoolnix \
-    && cp `whereis libboost_filesystem.so | awk '{print($2)}'` /usr/lib/libboost_filesystem.so.1.71.0
+    && apt-get install -y libboost-all-dev libegl1 libxkbcommon-x11-0 libpugixml1v5 libmatroska7 libxcb-cursor0 git mkvtoolnix \
+    && cp `whereis libboost_filesystem.so | awk '{print($2)}'` /usr/lib/libboost_filesystem.so.1.71.0 \
+    && cp `whereis libEGL.so.1 | awk '{print($2)}'` /usr/lib/libEGL.so.0
 
 WORKDIR /build
 RUN apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev tk-dev \
