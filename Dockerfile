@@ -1,7 +1,7 @@
-# using alpine 3.16, due to having python 3.10.* binaries in package repo
+# Using Alpine 3.16, due to having python 3.10.* binaries in package repo
 FROM jlesage/baseimage-gui:alpine-3.16-v4.6.3
 
-# install dependencies.
+# Install dependencies.
 RUN add-pkg \
         openjdk8-jre-base \
         # For beta key fetching.
@@ -35,7 +35,8 @@ RUN git clone https://github.com/yaser01/mkv-muxing-batch-gui.git \
     && apk add py3-pyside2 py3-psutil \
     && python3 -m pip install comtypes
 
+# Make startapp.sh executable and set app name
 RUN set-cont-env APP_NAME "MKV Muxing Batch GUI" \
-RUN chmod +x /startapp.sh
+    && chmod +x /startapp.sh
 
 LABEL org.opencontainers.image.source=https://github.com/captmicr0/mkv-muxing-batch-gui-docker
