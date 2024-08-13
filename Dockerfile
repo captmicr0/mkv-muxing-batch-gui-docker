@@ -13,6 +13,8 @@ RUN add-pkg \
         qt5-qtbase-x11 \
         adwaita-qt \
         font-croscore \
+        # git
+        git \ 
         # mkvtoolnix
         mkvtoolnix-gui \
         # python3.10.*, pip
