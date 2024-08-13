@@ -29,9 +29,8 @@ COPY startapp.sh /startapp.sh
 # Download mkv-muxing-batch-gui
 WORKDIR /app
 RUN git clone https://github.com/yaser01/mkv-muxing-batch-gui.git \
-    && git checkout develop-pyside2
-
-RUN cd mkv-muxing-batch-gui \
+    && cd mkv-muxing-batch-gui \
+    && git checkout develop-pyside2 \
     #&& python3 -m pip install -r requirements.txt
     && apk add py3-pyside2 py3-psutil \
     && python3 -m pip install comtypes
