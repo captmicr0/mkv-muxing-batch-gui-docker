@@ -13,12 +13,19 @@ RUN set-cont-env APP_NAME "MKV Muxing Batch GUI" \
     #&& python3 -m pip install --upgrade pip setuptools wheel \
     # install requirements for program (this will install qt5 as a dependency)
     && apk add py3-pyside2 py3-psutil \
-    && python3 -m pip install comtypes
+    && python3 -m pip install --no-compile --no-cache-dir comtypes \
+    # remove useless libs
+    && rm \
+        /usr/lib/libQt5WebEngineCore.so* \
+        /usr/lib/libLLVM-13.so* \
+        /usr/lib/libclang-cpp.so* \
+        /usr/lib/libclang.so*
 
 # Download mkv-muxing-batch-gui
 WORKDIR /app
 RUN git clone https://github.com/yaser01/mkv-muxing-batch-gui.git \
     && cd mkv-muxing-batch-gui \
-    && git checkout develop-pyside2
+    && git checkout develop-pyside2 \
+    && rm -rf .git && rm -rf ./Resources/Tools
 
 LABEL org.opencontainers.image.source=https://github.com/captmicr0/mkv-muxing-batch-gui-docker
