@@ -10,28 +10,33 @@ RUN add-pkg \
         # For the init script.
         findutils \
         # For the GUI.
-        qt5-qtbase-x11 \
-        adwaita-qt \
-        font-croscore \
+        qt5-qtbase-dev qt5-qttools-dev qt5-qtbase-x11 \
+        libxrender libxext libxfixes libxkbcommon-x11 \
         # git
-        git \ 
+        git \
         # mkvtoolnix
         mkvtoolnix-gui \
         # python3.10.*, pip
         python3 py3-pip \
     # update pip, setuptools, wheel
-    && python3 -m pip install --upgrade pip setuptools wheel
+    && python3 -m pip install --upgrade pip setuptools wheel \
+    # add qt5 plugins to library path
+    && export LD_LIBRARY_PATH=/usr/lib/qt5/plugins/platforms/:$LD_LIBRARY_PATH
 
 # Copy files
 COPY startapp.sh /startapp.sh
 
 # Download mkv-muxing-batch-gui
 WORKDIR /app
-RUN git clone --depth 1 https://github.com/yaser01/mkv-muxing-batch-gui.git \
-    && cd mkv-muxing-batch-gui \
-    && python3 -m pip install -r requirements.txt \
-    && rm -rf /root/.cache \
-    && set-cont-env APP_NAME "MKV Muxing Batch GUI" \
-    && chmod +x /startapp.sh
+RUN git clone https://github.com/yaser01/mkv-muxing-batch-gui.git \
+    && git checkout develop-pyside2
+
+RUN cd mkv-muxing-batch-gui \
+    #&& python3 -m pip install -r requirements.txt
+    && apk add py3-pyside2 py3-psutil \
+    && python3 -m pip install comtypes
+
+RUN set-cont-env APP_NAME "MKV Muxing Batch GUI" \
+RUN chmod +x /startapp.sh
 
 LABEL org.opencontainers.image.source=https://github.com/captmicr0/mkv-muxing-batch-gui-docker
